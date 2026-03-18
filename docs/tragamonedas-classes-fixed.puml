@@ -1,0 +1,53 @@
+@startuml
+skin rose
+hide empty methods
+left to right direction
+set separator none
+
+title "Tragamonedas Classes (sin Box)"
+
+package cl.ucn.disc.ads.tragamonedas {
+
+  package model {
+    class Rueda <<domain>> {
+      - RANDOM: Random {static}
+      - MAX_VALUE: int = 10 {static}
+      - valor: int = 0
+      + Rueda()
+      + girarAlAzar(): void
+      + getValor(): int
+      + getChar(): char
+    }
+  }
+
+  package services {
+    interface Tragamonedas {
+      + realizarApuesta(apuesta: int): int
+      + getRuedasValues(): List<Character>
+      + getSaldo(): int
+    }
+
+    class TragamonedasImpl <<service>> {
+      - NUMERO_RUEDAS: int = 3
+      - ruedas: List<Rueda>
+      - saldo: int
+      + TragamonedasImpl(saldo: int)
+      + realizarApuesta(apuesta: int): int
+      + getRuedasValues(): List<Character>
+      + getSaldo(): int
+      - girarRuedas(): void
+      - getPremio(apuesta: int): int
+      - isValorRuedasIgualesDistintoDeCero(): boolean
+    }
+  }
+
+  class TheMain {
+    - IN: Scanner {static}
+    + main(args: String[]): void {static}
+  }
+}
+
+TragamonedasImpl ..|> Tragamonedas : implements
+TragamonedasImpl *-- "3" Rueda : tiene
+TheMain ..> TragamonedasImpl : usa
+@enduml

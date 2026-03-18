@@ -1,0 +1,64 @@
+@startuml
+skin rose
+hide empty methods
+left to right direction
+set separator none
+
+title "Tragamonedas Classes"
+
+package cl.ucn.disc.ads.tragamonedas {
+
+  package models {
+
+    class Rueda <<domain>> {
+      - RANDOM: java.util.Random
+      - MAX_VALUE: int = 10
+      - valor: int = 0
+      + Rueda()
+      + girarAlAzar(): void
+      + getValor(): int
+      + getChar(): char
+    }
+
+    class Box <<domain>> {
+      - NUMERO_RUEDAS: int = 3
+      - ruedas: List<Rueda>
+      + Box()
+      + realizarApuesta(valorApuesta: int): int
+      + getRuedasValues(): List<Character>
+      - girarRuedas(): void
+      - getPremio(apuesta: int): int
+      - isValorRuedasIgualesDistintoDeCero(): boolean
+    }
+  }
+
+  package service {
+
+    class TragamonedasImpl {
+      - box: Box
+      - saldo: int
+      + TragamonedasImpl(saldo: int)
+      + realizarApuesta(apuesta: int): int
+      + getRuedasValues(): List<Character>
+      + getSaldo(): int
+    }
+
+    interface Tragamonedas {
+      + realizarApuesta(apuesta: int): int
+      + getRuedasValues(): List<Character>
+      + getSaldo(): int
+    }
+  }
+
+  class TheMain {
+    - IN: java.util.Scanner
+    + main(args: String[]): void
+  }
+}
+
+Box *--> "3" Rueda : tiene
+TragamonedasImpl --> Box : tiene
+TragamonedasImpl ..|> Tragamonedas : implements
+TheMain --> TragamonedasImpl : usa
+
+@enduml
