@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * The Tragamonedas.
  *
- * @author Arquitectura de Sistemas.
+ * @author Josemanuel Espinoza.
  */
 public interface Tragamonedas {
 
